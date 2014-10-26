@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+		
+<!-- Bean Of List Packge to scan -->
+	<context:component-scan base-package="com.bergit" />
+<!-- 	<context:component-scan base-package="com.bergit.jpa" /> -->
+<!-- Internal Resource View Resolver -->
+	<bean
+        class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/jsp/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+	
+<!--Bean Of Mapping Jackson Http Message Converter-->
+	<bean id="jsonMessageConverter"
+	class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+	</bean>
+<!--Bean  String Http Message Converter	 -->
+	<bean id="stringHttpMessageConverter"  class="org.springframework.http.converter.StringHttpMessageConverter"/>
+<!--Bean Of WeB SerVice Rest Tempalte-->	
+	<bean id="RestTemplate" class="org.springframework.web.client.RestTemplate">
+	    <property name="messageConverters">
+	        <list>
+	            <ref bean="jsonMessageConverter" />
+	            <ref bean="stringHttpMessageConverter"/>
+	        </list>
+	    </property>
+	</bean>
+	
+
+</beans>
